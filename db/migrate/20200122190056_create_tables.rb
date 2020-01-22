@@ -28,7 +28,7 @@ class CreateTables < ActiveRecord::Migration[5.2]
       t.integer :multiplyer
       t.string :debuff_effect
       t.string :img
-      t.integer :player_id
+      t.integer :level_id
     end
     create_table :levels do |t|
       t.string :name

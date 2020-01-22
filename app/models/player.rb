@@ -21,8 +21,7 @@ class Player < ApplicationRecord
 
   def attack(mob_id)
     mob = Mob.find(mob_id)
-    damage = self.weapon.damage * self.weapon.multiplyer + self.power
-    mob.health - damage
+    damage = self.weapon.damage * self.weapon.multiplyer + self.powers
     health = mob.health - damage
     mob.update(:health => health)
   end
