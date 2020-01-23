@@ -4,12 +4,23 @@ class LevelsController < ApplicationController
   # GET /levels
   # GET /levels.json
   def index
-    @levels = Level.all
+    4.times do |index|
+    Weapon.create!(damage: rand(4..10), multiplyer: rand(1..2), debuff_effect: ['fire', 'ice', 'bleed', 'vomit'].sample, img:["https://cdn140.picsart.com/268986468003211.png?r1024x1024", "https://mir-s3-cdn-cf.behance.net/project_modules/disp/9da20421691741.5630659436bbd.png", "https://thecreativeextreme.com/wp-content/uploads/2017/07/Mikrotero-Creature-single.png", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDFYNIKXdK5DIpj4jrdScUnTDB9AjhxrgVl5rWXGYUBUGK2IXM&s", "https://s19.postimg.cc/5n0v3wbw3/mimic_book.png", "https://officialpsds.com/imageview/72/8n/728npx_large.png?1521316482", "https://i.pinimg.com/originals/ca/ae/07/caae07d7ea6258705164b5ee16bb05e5.png", "https://www.totalwine.com/dynamic/490x/media/sys_master/twmmedia/h29/h14/10979435577374.png", "http://www.ihstattler.com/wp/wp-content/uploads/2016/10/Eye-Creature-Copy-joseph-yoon.png", "https://images.fineartamerica.com/images/artworkimages/medium/1/rainbow-unicorn-clouds-and-stars-crista-forest-transparent.png"].sample, player_id: nil )
+  end
+    @north = Level.create(name: Faker::Books::Lovecraft.location, location: 'north', weapon_id: Weapon.all.sample.id )
+    @south = Level.create(name: Faker::Books::Lovecraft.location, location: 'south', weapon_id: Weapon.all.sample.id )
+    @east = Level.create(name: Faker::Books::Lovecraft.location, location: 'east', weapon_id:Weapon.all.sample.id )
+    @west = Level.create(name: Faker::Books::Lovecraft.location, location: 'west', weapon_id: Weapon.all.sample.id)
+    @player = Player.find(session[:player_id])
+    :index
   end
 
   # GET /levels/1
   # GET /levels/1.json
   def show
+    @player = Player.find(session[:player_id])
+    @player.update(:level_id => params[:id])
+    :show
   end
 
   # GET /levels/new

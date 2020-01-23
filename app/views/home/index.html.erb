@@ -1,6 +1,12 @@
 
 <% if current_player %>
     <%= current_player.email %> | <%= link_to "Sign out", '/signout' %>
+    <h2>Name: <%= @player.name %></h2>
+      <h2>Power:<%= @player.power %></h2>
+        <h2>Health: <%= @player.health %></h2>
+        <h2>Weapon:<img src="<%= @player.weapon.img %>" alt=""></h2>
+        <%= link_to "Start Game", levels_path%>
+
   <% else %>
     <%= link_to "Sign up", '/signup'%> | <%= link_to "Sign in", '/signin' %>
   <% end %>

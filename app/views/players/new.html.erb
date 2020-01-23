@@ -6,5 +6,8 @@
   <%= f.password_field :password %>
   <%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %>
+  <%= f.label "Character Name" %>
+  <%= f.text_field :name %>
+  <%= f.hidden_field :weapon_id, :value => 1%>
   <%= f.submit "Sign Up" %>
 <% end %>

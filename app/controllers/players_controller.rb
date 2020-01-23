@@ -25,7 +25,9 @@ class PlayersController < ApplicationController
   # POST /players.json
   def create
     @player = Player.new(player_params)
-   if @player.save
+
+   if @player.save!
+     @player.update(:power => 2, :health => 50)
      flash[:notice] = "You've successfully signed up!"
      session[:player_id] = @player.id
      redirect_to "/"
@@ -67,6 +69,6 @@ class PlayersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def player_params
-      params.require(:player).permit(:email, :password, :password_confirmation)
+      params.require(:player).permit(:email, :password, :password_confirmation, :name, :weapon_id)
     end
 end
