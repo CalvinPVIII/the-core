@@ -1,4 +1,5 @@
 <p id="notice"><%= notice %></p>
+<%= link_to "Exit The Core", '/signout', :id => "exit" %>  
 <% if @player.w_stat == true && @player.e_stat && @player.s_stat && @player.n_stat %>
 <h2>You have searched all the dungeons, but monsters may still be lurking</h2>
 <%end%>
