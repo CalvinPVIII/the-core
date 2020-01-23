@@ -23,8 +23,6 @@ ActiveRecord::Schema.define(version: 2020_01_22_233514) do
   end
 
   create_table "mobs", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "name"
     t.integer "power"
     t.integer "health"
@@ -33,8 +31,6 @@ ActiveRecord::Schema.define(version: 2020_01_22_233514) do
   end
 
   create_table "players", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "name"
     t.integer "power"
     t.integer "health"
@@ -51,14 +47,12 @@ ActiveRecord::Schema.define(version: 2020_01_22_233514) do
   end
 
   create_table "weapons", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "name"
     t.integer "damage"
     t.integer "multiplyer"
     t.string "debuff_effect"
     t.string "img"
-    t.integer "player_id"
+    t.integer "level_id"
   end
 
 end

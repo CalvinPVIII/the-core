@@ -23,3 +23,11 @@ body {
 body a {
   color: white;
 }
+
+
+ #torch_r {
+   object-position: right;
+   -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  padding-left:63%;
+ }

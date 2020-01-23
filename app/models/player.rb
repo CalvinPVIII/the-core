@@ -1,5 +1,6 @@
 class Player < ApplicationRecord
   belongs_to :weapon
+  belongs_to :level
   attr_accessor :password
   validates_confirmation_of :password
   validates :email, :presence => true, :uniqueness => true
@@ -21,9 +22,9 @@ class Player < ApplicationRecord
 
   def attack(mob_id)
     mob = Mob.find(mob_id)
-    damage = self.weapon.damage * self.weapon.multiplyer + self.powers
+    damage = self.weapon.damage * self.weapon.multiplyer + self.power
     health = mob.health - damage
-    mob.update(:health => health)
+    # mob.update(:health => health)
   end
 
 

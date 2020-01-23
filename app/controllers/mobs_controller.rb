@@ -40,35 +40,57 @@ class MobsController < ApplicationController
   # PATCH/PUT /mobs/1
   # PATCH/PUT /mobs/1.json
   def update
-    respond_to do |format|
-      if @mob.update(mob_params)
-        format.html { redirect_to @mob, notice: 'Mob was successfully updated.' }
-        format.json { render :show, status: :ok, location: @mob }
-      else
-        format.html { render :edit }
-        format.json { render json: @mob.errors, status: :unprocessable_entity }
+    @player = Player.find(session[:player_id])
+    if @mob.update(mob_params)
+      if @mob.health <= 0
+        flash[:notice] = "You've successfully bested the #{@mob.name}!"
+        @mob.destroy
+        @player.health += 25
       end
-    end
+      if @mob.level.mobs == []
+        if @player.level.location == 'north'
+          @player.n_stat == 'true'
+          redirect_to levels_path
+        elsif @player.level.location = 'south'
+          @player.s_stat == 'true'
+          redirect_to levels_path
+        elsif @player.level.location = 'west'
+          @player.w_stat == 'true'
+          redirect_to levels_path
+        elsif @player.level.location = 'east'
+          @player.e_stat == 'true'
+          redirect_to levels_path
+        end
+      else
+        redirect_to level_path(@player.level.id)
+      end
+
+
+
+  else
+    format.html { render :edit }
+    format.json { render json: @mob.errors, status: :unprocessable_entity }
   end
+end
 
-  # DELETE /mobs/1
-  # DELETE /mobs/1.json
-  def destroy
-    @mob.destroy
-    respond_to do |format|
-      format.html { redirect_to mobs_url, notice: 'Mob was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+# DELETE /mobs/1
+# DELETE /mobs/1.json
+def destroy
+  @mob.destroy
+  respond_to do |format|
+    format.html { redirect_to mobs_url, notice: 'Mob was successfully destroyed.' }
+    format.json { head :no_content }
   end
+end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_mob
-      @mob = Mob.find(params[:id])
-    end
+private
+# Use callbacks to share common setup or constraints between actions.
+def set_mob
+  @mob = Mob.find(params[:id])
+end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def mob_params
-      params.fetch(:mob, {})
-    end
+# Never trust parameters from the scary internet, only allow the white list through.
+def mob_params
+  params.require(:mob).permit(:health)
+end
 end
