@@ -14,9 +14,17 @@
 </div>
 <div class="look">
   <%= link_to 'Look Around', level_path(@player.level), :id => 'look-around' %>
-
 </div>
 
+<div class="player-stats">
+<div class="wrapper">
+  <h3>Name: <%= @player.name %></h3>
+  <h3>Health:<%= @player.health %></h3>
+  <h3>Power: <%= @player.power %></h3>
+  <h3>Weapon:<%= @player.weapon.name %></h3>
+</div>
+<br>
+<div class="nav_buttton">
 <% if @player.level.location == 'north' %>
 <%= link_to 'South', level_path(Level.where(:location => 'south').sample), :id => 'look-around' %>
 <%= link_to 'East', level_path(Level.where(:location => 'east').sample), :id => 'look-around' %>
@@ -34,6 +42,9 @@
 <%= link_to 'South', level_path(Level.where(:location => 'south').sample), :id => 'look-around' %>
 <%= link_to 'East', level_path(Level.where(:location => 'east').sample), :id => 'look-around' %>
 <%end%>
+</div>
+<br>
+</div>
 <% @mobs.each do |mob|%>
 <img src="<%= mob.img%>" alt="">
 <h3>FOE: <%= mob.name %></h3>
@@ -45,4 +56,5 @@
 <% end %>
 
 <% end %>
+
 <%= link_to 'Back', levels_path %>

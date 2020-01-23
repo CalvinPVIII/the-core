@@ -8,7 +8,11 @@
   <%= f.password_field :password_confirmation %>
   <%= f.label "Character Name" %>
   <%= f.text_field :name %>
-  <%= f.hidden_field :weapon_id, :value => 1%>
+  <%= f.hidden_field :weapon_id, :value => Weapon.where(debuff_effect: "none").first.id%>
   <%= f.hidden_field :level_id, :value => 1%>
+  <%= f.hidden_field :n_stat, :value => false%>
+  <%= f.hidden_field :s_stat, :value => false%>
+  <%= f.hidden_field :e_stat, :value => false%>
+  <%= f.hidden_field :w_stat, :value => false%>
   <%= f.submit "Sign Up" %>
 <% end %>

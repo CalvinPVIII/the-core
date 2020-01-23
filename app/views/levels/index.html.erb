@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
-
+<% if @player.w_stat == true && @player.e_stat && @player.s_stat && @player.n_stat %>
+<h2>You have searched all the dungeons, but monsters may still be lurking</h2>
+<%end%>
 <h1>Levels</h1>
 
 
@@ -11,3 +13,56 @@
 <%= link_to 'East', level_path(@east.id) %>
 <br>
 <%= link_to 'West', level_path(@west.id) %>
+<% if @player.n_stat == true %>
+<h2>Weapon from North Dungeon</h2>
+<img src="<%=  @north.weapon.img %>" alt="">
+<p>Weapon: <%=  @north.weapon.name %></p>
+<p>Damage: <%= @north.weapon.damage %></p>
+<p>Multiplier: <%= @north.weapon.multiplyer %></p>
+<p>Effect: <%=@north.weapon.debuff_effect %>
+</p>
+<%= form_for @player do |f| %>
+<%= f.hidden_field :weapon_id, :value => @north.weapon_id %>
+<%= f.submit "Equip" %>
+<% end %>
+<% end %>
+<% if @player.s_stat == true %>
+<h2>Weapon from South Dungeon</h2>
+<img src="<%=  @south.weapon.img %>" alt="">
+<p>Weapon: <%=  @south.weapon.name %></p>
+<p>Damage: <%= @south.weapon.damage %></p>
+<p>Multiplier: <%= @south.weapon.multiplyer %></p>
+<p>Effect: <%=@south.weapon.debuff_effect %>
+</p>
+<%= form_for @player do |f| %>
+<%= f.hidden_field :weapon_id, :value => @south.weapon_id %>
+<%= f.submit "Equip" %>
+<% end %>
+<% end %>
+<% if @player.e_stat == true %>
+<h2>Weapon from East Dungeon</h2>
+<img src="<%=  @east.weapon.img %>" alt="">
+<p>Weapon: <%=  @east.weapon.name %></p>
+<p>Damage: <%= @east.weapon.damage %></p>
+<p>Multiplier: <%= @east.weapon.multiplyer %></p>
+<p>Effect: <%=@east.weapon.debuff_effect %>
+</p>
+<%= form_for @player do |f| %>
+<%= f.hidden_field :weapon_id, :value => @east.weapon_id %>
+<%= f.submit "Equip" %>
+<% end %>
+<% end %>
+<% if @player.w_stat == true %>
+<h2>Weapon from West Dungeon</h2>
+<img src="<%=  @west.weapon.img %>" alt="">
+<p>Weapon: <%=  @west.weapon.name %></p>
+<p>Damage: <%= @west.weapon.damage %></p>
+<p>Multiplier: <%= @west.weapon.multiplyer %></p>
+<p>Effect: <%=@west.weapon.debuff_effect %>
+</p>
+<%= form_for @player do |f| %>
+<%= f.hidden_field :weapon_id, :value => @west.weapon_id %>
+<%= f.submit "Equip" %>
+<% end %>
+
+<%end%>

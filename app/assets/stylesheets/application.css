@@ -58,11 +58,64 @@ padding-top: 10%;
 
 }
 #look-around {
-  padding: 5px; 
+  padding: 5px;
   margin-top: 10px;
+  margin-bottom: 20px;
   background-color: lightgreen;
   border-top: 10px solid black;
   border-bottom: 10px solid black;
   border-left: 10px solid black;
   border-right: 10px solid black;
+}
+
+.player-stats {
+  font-weight: bolder;
+
+  margin-left: 80%;
+  position: fixed;
+  padding: 5px;
+  color: lightgreen;
+  border-top: 10px solid black;
+  border-bottom: 10px solid black;
+  border-left: 10px solid black;
+  border-right: 10px solid black;
+
+
+}
+
+#sign_up {
+ color: yellow;
+  font-family: fantasy;
+  font-size: 20px;
+  text-align: center;
+}
+#sign_out, #start {
+ color: yellow;
+  font-family: fantasy;
+  font-size: 20px;
+  text-align: center;
+  margin-left: 10px;
+}
+
+#sign_in {
+  float: right;
+ color: yellow;
+  font-family: fantasy;
+  font-size: 20px;
+text-align: right;
+}
+.flame {
+  background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/06c9396a-128b-42a2-9d0c-9a9520a8e641/d7y80ip-d0f7323d-14ec-4c57-9991-65646e346e41.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA2YzkzOTZhLTEyOGItNDJhMi05ZDBjLTlhOTUyMGE4ZTY0MVwvZDd5ODBpcC1kMGY3MzIzZC0xNGVjLTRjNTctOTk5MS02NTY0NmUzNDZlNDEuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.NEgGau1BgS8GnE0P1LxNpWjXFfH-aOtyXlDEZxITppI");
+  overflow: hidden;
+      background-size: cover;
+      background-position: center;
+  position:absolute;
+  bottom: 0;
+width: 100%;
+}
+
+.title {
+  text-align: center;
+  font-size: 100px;
+  font-family: 'MedievalSharp', cursive;
 }

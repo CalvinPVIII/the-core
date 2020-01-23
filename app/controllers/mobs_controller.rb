@@ -41,24 +41,34 @@ class MobsController < ApplicationController
   # PATCH/PUT /mobs/1.json
   def update
     @player = Player.find(session[:player_id])
+    # binding.pry
     if @mob.update(mob_params)
+      damage  = 0
+      @level = Level.find(@mob.level.id)
+      @level.mobs.each do |mob|
+        damage += mob.power/2
+      end
+      health = @player.health - damage
+      @player.update(:health => health)
       if @mob.health <= 0
         flash[:notice] = "You've successfully bested the #{@mob.name}!"
         @mob.destroy
-        @player.health += 25
+        @player.update(:health => (@player.health += 14))
+        @player.update(:power => (@player.power += 5))
       end
       if @mob.level.mobs == []
         if @player.level.location == 'north'
-          @player.n_stat == 'true'
+          @player.update(:n_stat => true)
           redirect_to levels_path
-        elsif @player.level.location = 'south'
-          @player.s_stat == 'true'
+        elsif @player.level.location == 'south'
+          @player.update(:s_stat => true)
           redirect_to levels_path
-        elsif @player.level.location = 'west'
-          @player.w_stat == 'true'
+          # binding.pry
+        elsif @player.level.location == 'west'
+          @player.update(:w_stat => true)
           redirect_to levels_path
-        elsif @player.level.location = 'east'
-          @player.e_stat == 'true'
+        elsif @player.level.location == 'east'
+        @player.update(:e_stat => true)
           redirect_to levels_path
         end
       else

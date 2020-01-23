@@ -4,8 +4,9 @@ class LevelsController < ApplicationController
   # GET /levels
   # GET /levels.json
   def index
+    @player = Player.find(session[:player_id])
     4.times do |index|
-    Weapon.create!(damage: rand(4..10), multiplyer: rand(1..2), debuff_effect: ['fire', 'ice', 'bleed', 'vomit'].sample, img:["https://cdn140.picsart.com/268986468003211.png?r1024x1024", "https://mir-s3-cdn-cf.behance.net/project_modules/disp/9da20421691741.5630659436bbd.png", "https://thecreativeextreme.com/wp-content/uploads/2017/07/Mikrotero-Creature-single.png", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDFYNIKXdK5DIpj4jrdScUnTDB9AjhxrgVl5rWXGYUBUGK2IXM&s", "https://s19.postimg.cc/5n0v3wbw3/mimic_book.png", "https://officialpsds.com/imageview/72/8n/728npx_large.png?1521316482", "https://i.pinimg.com/originals/ca/ae/07/caae07d7ea6258705164b5ee16bb05e5.png", "https://www.totalwine.com/dynamic/490x/media/sys_master/twmmedia/h29/h14/10979435577374.png", "http://www.ihstattler.com/wp/wp-content/uploads/2016/10/Eye-Creature-Copy-joseph-yoon.png", "https://images.fineartamerica.com/images/artworkimages/medium/1/rainbow-unicorn-clouds-and-stars-crista-forest-transparent.png"].sample, level_id: rand(1..4) )
+    Weapon.create!(damage: rand(4..10), multiplyer: rand(1..2), debuff_effect: ['fire', 'ice', 'bleed', 'vomit'].sample, img:["https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/0d9180b6-8e05-4911-b751-1856cbbc228d/dblzqjy-a7bec91e-4fd5-4888-a8be-f5e246f1c96f.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzBkOTE4MGI2LThlMDUtNDkxMS1iNzUxLTE4NTZjYmJjMjI4ZFwvZGJsenFqeS1hN2JlYzkxZS00ZmQ1LTQ4ODgtYThiZS1mNWUyNDZmMWM5NmYuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.j9nF6P8ExyaeI7TaXBzaY3Hw2_kq0ZnTEvQFsqtWtZc", "https://24.media.tumblr.com/859d7b6fff7a2547bd2c86964a8f2970/tumblr_n4h0e0PDnV1tssnuwo1_r1_500.gif", "https://i.ya-webdesign.com/images/transparent-sprite-sword-4.gif", "https://cdn.shopify.com/s/files/1/1898/7135/products/Bamboo_Groom_31_Pin_Animated_large.gif?v=1532532299", "https://i.pinimg.com/originals/c1/ce/c5/c1cec56aed61a4f0a3df573734a5a257.gif", "https://media2.giphy.com/media/3o6ZsVlojqxjgmlRWE/giphy.gif", "https://media.giphy.com/media/QWiHgl0s4eRqg/giphy.gif" ].sample, level_id: rand(1..4) )
   end
     @north = Level.create(name: Faker::Books::Lovecraft.location, location: 'north', weapon_id: Weapon.all.sample.id )
     @south = Level.create(name: Faker::Books::Lovecraft.location, location: 'south', weapon_id: Weapon.all.sample.id )
@@ -21,10 +22,17 @@ class LevelsController < ApplicationController
   def show
     @player = Player.find(session[:player_id])
     @player.update(:level_id => params[:id])
+    @level = Level.find(@player.level_id)
     if @player.level.mobs == []
     @player.level.spawn_mobs
     @mobs = @player.level.mobs
   else
+    if @player.health <= 0
+      @player.destroy
+      flash[:notice] = "You have failed your quest. Better luck next year...."
+      session[:player_id] = nil
+      redirect_to root_path
+    end
     @mobs = @player.level.mobs
   end
   :show
