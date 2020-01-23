@@ -1,29 +1,48 @@
 <div class="container">
-  <h1 id = "intro_script">"<%= @player.level.name %>" (<%=@player.level.location%> dungeon) </h1>
-  <h2><%= Faker::Books::Lovecraft.paragraph %></h2>
-<img id= "torch_r" src="https://i.ya-webdesign.com/images/torch-transparent-gif-animation-6.gif" alt="">
-<img id= "torch_l" src="https://i.ya-webdesign.com/images/torch-transparent-gif-animation-6.gif" alt="">
-  
+<section>
+  <div class="wrapper">
+
+    <h1 id = "intro_script">"<%= @player.level.name %>" (<%=@player.level.location%> dungeon) </h1>
+
+    <h2><%= Faker::Books::Lovecraft.paragraph %></h2>
+
+    <img id= "torch_r" src="https://i.ya-webdesign.com/images/torch-transparent-gif-animation-6.gif" alt="">
+    <img id= "torch_l" src="https://i.ya-webdesign.com/images/torch-transparent-gif-animation-6.gif" alt="">
+  </div>
+
+</section>
+</div>
+<div class="look">
+  <%= link_to 'Look Around', level_path(@player.level), :id => 'look-around' %>
+
 </div>
 
 <% if @player.level.location == 'north' %>
+<%= link_to 'South', level_path(Level.where(:location => 'south').sample), :id => 'look-around' %>
+<%= link_to 'East', level_path(Level.where(:location => 'east').sample), :id => 'look-around' %>
+<%= link_to 'West', level_path(Level.where(:location => 'west').sample), :id => 'look-around' %>
+<% elsif @player.level.location == 'south' %>
+<%= link_to 'North', level_path(Level.where(:location => 'north').sample), :id => 'look-around' %>
+<%= link_to 'East', level_path(Level.where(:location => 'east').sample), :id => 'look-around' %>
+<%= link_to 'West', level_path(Level.where(:location => 'west').sample), :id => 'look-around' %>
+<% elsif @player.level.location == 'east' %>
+<%= link_to 'North', level_path(Level.where(:location => 'north').sample), :id => 'look-around' %>
+<%= link_to 'South', level_path(Level.where(:location => 'south').sample), :id => 'look-around' %>
+<%= link_to 'West', level_path(Level.where(:location => 'west').sample), :id => 'look-around' %>
+<% elsif @player.level.location == 'west' %>
+<%= link_to 'North', level_path(Level.where(:location => 'north').sample), :id => 'look-around' %>
+<%= link_to 'South', level_path(Level.where(:location => 'south').sample), :id => 'look-around' %>
+<%= link_to 'East', level_path(Level.where(:location => 'east').sample), :id => 'look-around' %>
+<%end%>
 <% @mobs.each do |mob|%>
 <img src="<%= mob.img%>" alt="">
 <h3>FOE: <%= mob.name %></h3>
 <h3>POWER LEVEL: <%= mob.power %></h3>
 <h3>HEALTH: <%= mob.health %></h3>
 <%= form_for mob do |f| %>
-
 <%= f.hidden_field :health, :value => @player.attack(mob.id) %>
 <%= f.submit "Attack" %>
 <% end %>
 
-<% end%>
-<% elsif @player.level.location == 'south' %>
-<h2>south</h2>
-<% elsif @player.level.location == 'east' %>
-<h2>east</h2>
-<% elsif @player.level.location == 'west' %>
-<h2>west</h2>
-<%end%>
+<% end %>
 <%= link_to 'Back', levels_path %>

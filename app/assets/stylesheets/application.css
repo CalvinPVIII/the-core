@@ -31,3 +31,38 @@ body a {
   transform: scaleX(-1);
   padding-left:63%;
  }
+
+#intro_script {
+  text-align: center;
+}
+.scroll {
+  background-repeat: no-repeat;
+position: absolute;
+padding-top: 10%;
+
+}
+
+.wrapper {
+  display: block;
+  color: lightgreen;
+  padding: 40px;
+  margin: -10px 0;
+  border-top: 10px solid black;
+  border-bottom: 10px solid black;
+
+}
+
+.look {
+  margin-top: 30px;
+  margin-left: 50%;
+
+}
+#look-around {
+  padding: 5px; 
+  margin-top: 10px;
+  background-color: lightgreen;
+  border-top: 10px solid black;
+  border-bottom: 10px solid black;
+  border-left: 10px solid black;
+  border-right: 10px solid black;
+}
